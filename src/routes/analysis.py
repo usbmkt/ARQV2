@@ -549,7 +549,7 @@ Responda EXCLUSIVAMENTE em formato JSON estruturado, seguindo rigorosamente o es
     ]
   }}
 }}
-```Seja criativo, analítico e entregue uma análise que realmente agregue valor estratégico. Não use placeholders como \'\'[Nome do Avatar]\'', preencha com informações concretas e realistas. Surpreenda-me com a profundidade e a aplicabilidade das suas análises!\n\nIMPORTANTE: \n- Use dados reais e atualizados quando possível\n- Faça estimativas conservadoras baseadas em padrões do mercado\n- Seja específico com números e métricas\n- Foque em insights acionáveis"""
+```Seja criativo, analítico e entregue uma análise que realmente agregue valor estratégico. Não use placeholders como \'[Nome do Avatar]\', preencha com informações concretas e realistas. Surpreenda-me com a profundidade e a aplicabilidade das suas análises!\n\nIMPORTANTE: \n- Use dados reais e atualizados quando possível\n- Faça estimativas conservadoras baseadas em padrões do mercado\n- Seja específico com números e métricas\n- Foque em insights acionáveis"""""
     return prompt_content
                     ]
                 },
