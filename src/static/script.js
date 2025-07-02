@@ -120,13 +120,14 @@ function showLoading() {
 
 function simulateProgress() {
     const steps = [
-        { progress: 10, text: 'Analisando nicho de mercado...' },
-        { progress: 25, text: 'Pesquisando concorrência...' },
-        { progress: 40, text: 'Identificando avatar ideal...' },
-        { progress: 60, text: 'Gerando estratégias de posicionamento...' },
-        { progress: 80, text: 'Criando materiais de marketing...' },
-        { progress: 95, text: 'Finalizando análise...' },
-        { progress: 100, text: 'Análise concluída!' }
+        { progress: 10, text: 'Conectando com DeepSeek AI...' },
+        { progress: 20, text: 'Analisando nicho de mercado...' },
+        { progress: 35, text: 'Mapeando avatar ideal...' },
+        { progress: 50, text: 'Pesquisando concorrência...' },
+        { progress: 65, text: 'Calculando métricas de mercado...' },
+        { progress: 80, text: 'Gerando estratégias de aquisição...' },
+        { progress: 95, text: 'Finalizando análise completa...' },
+        { progress: 100, text: 'Análise concluída com sucesso!' }
     ];
     
     let currentStep = 0;
@@ -139,7 +140,7 @@ function simulateProgress() {
         } else {
             clearInterval(interval);
         }
-    }, 1500);
+    }, 2000);
 }
 
 function updateProgress(percentage, text) {
@@ -170,7 +171,7 @@ async function performAnalysis(data) {
             hideLoading();
             displayResults(result);
             analysisInProgress = false;
-        }, 12000); // 12 seconds total for progress simulation
+        }, 16000); // 16 seconds total for progress simulation
         
     } catch (error) {
         console.error('Erro na análise:', error);
@@ -200,14 +201,14 @@ function generateResultsHTML(analysis) {
                     <div class="neo-card-icon">
                         <i class="fas fa-trophy"></i>
                     </div>
-                    <h3 class="neo-card-title">Análise Concluída com Sucesso</h3>
+                    <h3 class="neo-card-title">Análise Completa Finalizada</h3>
                 </div>
                 <div class="neo-card-content">
-                    <p>Sua análise de mercado foi processada pela IA Gemini. Explore os resultados abaixo para descobrir insights valiosos sobre seu nicho.</p>
+                    <p>Sua análise ultra-detalhada foi processada pela IA DeepSeek. Esta é uma análise completa baseada em frameworks científicos de psicologia do consumidor e neurociência aplicada ao marketing.</p>
                     <div class="results-actions">
                         <button class="neo-cta-button" onclick="downloadReport()">
                             <i class="fas fa-download"></i>
-                            <span>Baixar Relatório</span>
+                            <span>Baixar Relatório Completo</span>
                         </button>
                         <button class="neo-cta-button" onclick="shareResults()" style="background: var(--neo-bg); color: var(--text-primary); box-shadow: var(--neo-shadow-1);">
                             <i class="fas fa-share"></i>
@@ -219,85 +220,53 @@ function generateResultsHTML(analysis) {
         </div>
         
         <div class="results-grid">
+            ${generateEscopoSection(analysis.escopo)}
             ${generateAvatarSection(analysis.avatar)}
-            ${generatePositioningSection(analysis.positioning)}
-            ${generateMarketingSection(analysis.marketing)}
-            ${generateMetricsSection(analysis.metrics)}
-            ${generateCompetitionSection(analysis.competition)}
-            ${generateFunnelSection(analysis.funnel)}
+            ${generateDoresDesejos(analysis.dores_desejos)}
+            ${generateConcorrenciaSection(analysis.concorrencia)}
+            ${generateMercadoSection(analysis.mercado)}
+            ${generatePalavrasChaveSection(analysis.palavras_chave)}
+            ${generateMetricasSection(analysis.metricas)}
+            ${generateVozMercadoSection(analysis.voz_mercado)}
+            ${generateProjecoesSection(analysis.projecoes)}
+            ${generatePlanoAcaoSection(analysis.plano_acao)}
         </div>
     `;
 }
 
-function generateAvatarSection(avatar) {
-    return `
-        <div class="neo-enhanced-card result-card">
-            <div class="neo-card-header">
-                <div class="neo-card-icon">
-                    <i class="fas fa-user-circle"></i>
-                </div>
-                <h3 class="neo-card-title">Perfil do Avatar</h3>
-            </div>
-            <div class="neo-card-content">
-                <div class="avatar-profile">
-                    <div class="avatar-basic-info">
-                        <h4>${avatar.nome}</h4>
-                        <p class="avatar-context">${avatar.contexto}</p>
-                    </div>
-                    
-                    <div class="avatar-details">
-                        <div class="detail-item">
-                            <strong>Barreira Crítica:</strong>
-                            <p>${avatar.barreira_critica}</p>
-                        </div>
-                        
-                        <div class="detail-item">
-                            <strong>Estado Desejado:</strong>
-                            <p>${avatar.estado_desejado}</p>
-                        </div>
-                        
-                        <div class="detail-item">
-                            <strong>Principais Frustrações:</strong>
-                            <ul>
-                                ${avatar.frustracoes.map(f => `<li>${f}</li>`).join('')}
-                            </ul>
-                        </div>
-                        
-                        <div class="detail-item">
-                            <strong>Crença Limitante:</strong>
-                            <p>${avatar.crenca_limitante}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-function generatePositioningSection(positioning) {
+function generateEscopoSection(escopo) {
+    if (!escopo) return '';
+    
     return `
         <div class="neo-enhanced-card result-card">
             <div class="neo-card-header">
                 <div class="neo-card-icon">
                     <i class="fas fa-bullseye"></i>
                 </div>
-                <h3 class="neo-card-title">Estratégia de Posicionamento</h3>
+                <h3 class="neo-card-title">Definição do Escopo</h3>
             </div>
             <div class="neo-card-content">
-                <div class="positioning-content">
-                    <div class="positioning-statement">
-                        <h4>Declaração de Posicionamento</h4>
-                        <blockquote>${positioning.declaracao}</blockquote>
+                <div class="escopo-content">
+                    <div class="detail-item">
+                        <strong>Nicho Principal:</strong>
+                        <p>${escopo.nicho_principal}</p>
                     </div>
                     
-                    <div class="messaging-angles">
-                        <h4>Ângulos de Mensagem</h4>
-                        ${positioning.angulos.map((angulo, index) => `
-                            <div class="angle-item">
-                                <h5>Ângulo ${index + 1}: ${angulo.tipo}</h5>
-                                <p>${angulo.mensagem}</p>
-                            </div>
-                        `).join('')}
+                    <div class="detail-item">
+                        <strong>Subnichos Identificados:</strong>
+                        <ul>
+                            ${escopo.subnichos?.map(sub => `<li>${sub}</li>`).join('') || '<li>Não especificado</li>'}
+                        </ul>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <strong>Produto Ideal:</strong>
+                        <p>${escopo.produto_ideal}</p>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <strong>Proposta de Valor Única:</strong>
+                        <p>${escopo.proposta_valor}</p>
                     </div>
                 </div>
             </div>
@@ -305,108 +274,117 @@ function generatePositioningSection(positioning) {
     `;
 }
 
-function generateMarketingSection(marketing) {
+function generateAvatarSection(avatar) {
+    if (!avatar) return '';
+    
     return `
         <div class="neo-enhanced-card result-card">
             <div class="neo-card-header">
                 <div class="neo-card-icon">
-                    <i class="fas fa-megaphone"></i>
+                    <i class="fas fa-user-circle"></i>
                 </div>
-                <h3 class="neo-card-title">Materiais de Marketing</h3>
+                <h3 class="neo-card-title">Análise Completa do Avatar</h3>
             </div>
             <div class="neo-card-content">
-                <div class="marketing-materials">
-                    <div class="material-tabs">
-                        <button class="tab-btn active" onclick="showMaterialTab('landing')">Landing Page</button>
-                        <button class="tab-btn" onclick="showMaterialTab('emails')">E-mails</button>
-                        <button class="tab-btn" onclick="showMaterialTab('ads')">Anúncios</button>
-                    </div>
-                    
-                    <div class="material-content">
-                        <div id="landing-content" class="tab-content active">
-                            <h4>Página de Vendas</h4>
-                            <div class="material-preview">
-                                <p>${marketing.landing_page.headline}</p>
-                                <div class="preview-sections">
-                                    ${marketing.landing_page.secoes.map(secao => `
-                                        <div class="section-preview">
-                                            <h5>${secao.titulo}</h5>
-                                            <p>${secao.conteudo.substring(0, 150)}...</p>
-                                        </div>
-                                    `).join('')}
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div id="emails-content" class="tab-content">
-                            <h4>Sequência de E-mails</h4>
-                            ${marketing.emails.map((email, index) => `
-                                <div class="email-preview">
-                                    <h5>E-mail ${index + 1}: ${email.tipo}</h5>
-                                    <p><strong>Assunto:</strong> ${email.assunto}</p>
-                                    <p>${email.preview}</p>
-                                </div>
-                            `).join('')}
-                        </div>
-                        
-                        <div id="ads-content" class="tab-content">
-                            <h4>Roteiros de Anúncios</h4>
-                            ${marketing.anuncios.map((ad, index) => `
-                                <div class="ad-preview">
-                                    <h5>Anúncio ${index + 1}: ${ad.angulo}</h5>
-                                    <p>${ad.roteiro}</p>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-function generateMetricsSection(metrics) {
-    return `
-        <div class="neo-enhanced-card result-card">
-            <div class="neo-card-header">
-                <div class="neo-card-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <h3 class="neo-card-title">Projeções e Métricas</h3>
-            </div>
-            <div class="neo-card-content">
-                <div class="metrics-grid">
-                    <div class="metric-item">
-                        <div class="metric-value">${metrics.leads_projetados}</div>
-                        <div class="metric-label">Leads Projetados</div>
-                    </div>
-                    
-                    <div class="metric-item">
-                        <div class="metric-value">${metrics.conversao}%</div>
-                        <div class="metric-label">Taxa de Conversão</div>
-                    </div>
-                    
-                    <div class="metric-item">
-                        <div class="metric-value">R$ ${metrics.faturamento.toLocaleString()}</div>
-                        <div class="metric-label">Faturamento Projetado</div>
-                    </div>
-                    
-                    <div class="metric-item">
-                        <div class="metric-value">${metrics.roi}%</div>
-                        <div class="metric-label">ROI Esperado</div>
-                    </div>
+                <div class="avatar-tabs">
+                    <button class="tab-btn active" onclick="showAvatarTab('demografia')">Demografia</button>
+                    <button class="tab-btn" onclick="showAvatarTab('psicografia')">Psicografia</button>
+                    <button class="tab-btn" onclick="showAvatarTab('comportamento')">Comportamento Digital</button>
                 </div>
                 
-                <div class="investment-breakdown">
-                    <h4>Distribuição do Investimento</h4>
-                    <div class="investment-items">
-                        ${metrics.investimento.map(item => `
-                            <div class="investment-item">
-                                <span class="channel">${item.canal}</span>
-                                <span class="percentage">${item.percentual}%</span>
-                                <span class="amount">R$ ${item.valor.toLocaleString()}</span>
+                <div class="avatar-content">
+                    <div id="demografia-content" class="tab-content active">
+                        <h4>Perfil Demográfico</h4>
+                        <div class="avatar-details">
+                            <div class="detail-item">
+                                <strong>Faixa Etária:</strong>
+                                <p>${avatar.demografia?.faixa_etaria || 'Não especificado'}</p>
                             </div>
-                        `).join('')}
+                            <div class="detail-item">
+                                <strong>Gênero:</strong>
+                                <p>${avatar.demografia?.genero || 'Não especificado'}</p>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Localização:</strong>
+                                <p>${avatar.demografia?.localizacao || 'Não especificado'}</p>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Renda:</strong>
+                                <p>${avatar.demografia?.renda || 'Não especificado'}</p>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Escolaridade:</strong>
+                                <p>${avatar.demografia?.escolaridade || 'Não especificado'}</p>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Profissões Principais:</strong>
+                                <ul>
+                                    ${avatar.demografia?.profissoes?.map(prof => `<li>${prof}</li>`).join('') || '<li>Não especificado</li>'}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="psicografia-content" class="tab-content">
+                        <h4>Perfil Psicográfico</h4>
+                        <div class="avatar-details">
+                            <div class="detail-item">
+                                <strong>Valores Principais:</strong>
+                                <ul>
+                                    ${avatar.psicografia?.valores?.map(valor => `<li>${valor}</li>`).join('') || '<li>Não especificado</li>'}
+                                </ul>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Estilo de Vida:</strong>
+                                <p>${avatar.psicografia?.estilo_vida || 'Não especificado'}</p>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Aspirações:</strong>
+                                <ul>
+                                    ${avatar.psicografia?.aspiracoes?.map(asp => `<li>${asp}</li>`).join('') || '<li>Não especificado</li>'}
+                                </ul>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Medos Principais:</strong>
+                                <ul>
+                                    ${avatar.psicografia?.medos?.map(medo => `<li>${medo}</li>`).join('') || '<li>Não especificado</li>'}
+                                </ul>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Frustrações:</strong>
+                                <ul>
+                                    ${avatar.psicografia?.frustracoes?.map(frust => `<li>${frust}</li>`).join('') || '<li>Não especificado</li>'}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="comportamento-content" class="tab-content">
+                        <h4>Comportamento Digital</h4>
+                        <div class="avatar-details">
+                            <div class="detail-item">
+                                <strong>Plataformas Principais:</strong>
+                                <ul>
+                                    ${avatar.comportamento_digital?.plataformas?.map(plat => `<li>${plat}</li>`).join('') || '<li>Não especificado</li>'}
+                                </ul>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Horários de Pico:</strong>
+                                <p>${avatar.comportamento_digital?.horarios_pico || 'Não especificado'}</p>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Conteúdo Preferido:</strong>
+                                <ul>
+                                    ${avatar.comportamento_digital?.conteudo_preferido?.map(cont => `<li>${cont}</li>`).join('') || '<li>Não especificado</li>'}
+                                </ul>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Influenciadores que Seguem:</strong>
+                                <ul>
+                                    ${avatar.comportamento_digital?.influenciadores?.map(inf => `<li>${inf}</li>`).join('') || '<li>Não especificado</li>'}
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -414,79 +392,438 @@ function generateMetricsSection(metrics) {
     `;
 }
 
-function generateCompetitionSection(competition) {
+function generateDoresDesejos(dores_desejos) {
+    if (!dores_desejos) return '';
+    
+    return `
+        <div class="neo-enhanced-card result-card">
+            <div class="neo-card-header">
+                <div class="neo-card-icon">
+                    <i class="fas fa-heart-broken"></i>
+                </div>
+                <h3 class="neo-card-title">Mapeamento de Dores e Desejos</h3>
+            </div>
+            <div class="neo-card-content">
+                <div class="dores-content">
+                    <div class="detail-item">
+                        <strong>Principais Dores Identificadas:</strong>
+                        <div class="dores-list">
+                            ${dores_desejos.principais_dores?.map((dor, index) => `
+                                <div class="dor-item">
+                                    <h5>Dor ${index + 1}: ${dor.descricao}</h5>
+                                    <p><strong>Impacto:</strong> ${dor.impacto}</p>
+                                    <p><strong>Urgência:</strong> <span class="urgencia ${dor.urgencia?.toLowerCase()}">${dor.urgencia}</span></p>
+                                </div>
+                            `).join('') || '<p>Não especificado</p>'}
+                        </div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <strong>Estado Atual:</strong>
+                        <p>${dores_desejos.estado_atual || 'Não especificado'}</p>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <strong>Estado Desejado:</strong>
+                        <p>${dores_desejos.estado_desejado || 'Não especificado'}</p>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <strong>Obstáculos Percebidos:</strong>
+                        <ul>
+                            ${dores_desejos.obstaculos?.map(obs => `<li>${obs}</li>`).join('') || '<li>Não especificado</li>'}
+                        </ul>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <strong>Sonho Secreto:</strong>
+                        <p class="sonho-secreto">${dores_desejos.sonho_secreto || 'Não especificado'}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function generateConcorrenciaSection(concorrencia) {
+    if (!concorrencia) return '';
+    
     return `
         <div class="neo-enhanced-card result-card">
             <div class="neo-card-header">
                 <div class="neo-card-icon">
                     <i class="fas fa-chess"></i>
                 </div>
-                <h3 class="neo-card-title">Análise Competitiva</h3>
+                <h3 class="neo-card-title">Análise da Concorrência</h3>
             </div>
             <div class="neo-card-content">
-                <div class="competition-analysis">
-                    ${competition.concorrentes.map(concorrente => `
-                        <div class="competitor-item">
-                            <h4>${concorrente.nome}</h4>
-                            <div class="competitor-details">
-                                <p><strong>Preço:</strong> R$ ${concorrente.preco}</p>
-                                <p><strong>Forças:</strong> ${concorrente.forcas}</p>
-                                <p><strong>Fraquezas:</strong> ${concorrente.fraquezas}</p>
-                                <p><strong>Oportunidade:</strong> ${concorrente.oportunidade}</p>
-                            </div>
+                <div class="concorrencia-content">
+                    <div class="detail-item">
+                        <strong>Concorrentes Diretos:</strong>
+                        <div class="concorrentes-list">
+                            ${concorrencia.diretos?.map(conc => `
+                                <div class="concorrente-item">
+                                    <h5>${conc.nome}</h5>
+                                    <p><strong>Preço:</strong> ${conc.preco}</p>
+                                    <p><strong>USP:</strong> ${conc.usp}</p>
+                                    <p><strong>Forças:</strong> ${Array.isArray(conc.forcas) ? conc.forcas.join(', ') : conc.forcas}</p>
+                                    <p><strong>Fraquezas:</strong> ${Array.isArray(conc.fraquezas) ? conc.fraquezas.join(', ') : conc.fraquezas}</p>
+                                </div>
+                            `).join('') || '<p>Não especificado</p>'}
                         </div>
-                    `).join('')}
-                </div>
-                
-                <div class="market-gaps">
-                    <h4>Lacunas do Mercado</h4>
-                    <ul>
-                        ${competition.lacunas.map(lacuna => `<li>${lacuna}</li>`).join('')}
-                    </ul>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <strong>Concorrentes Indiretos:</strong>
+                        <div class="indiretos-list">
+                            ${concorrencia.indiretos?.map(ind => `
+                                <div class="indireto-item">
+                                    <h5>${ind.nome}</h5>
+                                    <p><strong>Tipo:</strong> ${ind.tipo}</p>
+                                </div>
+                            `).join('') || '<p>Não especificado</p>'}
+                        </div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <strong>Gaps de Mercado Identificados:</strong>
+                        <ul>
+                            ${concorrencia.gaps_mercado?.map(gap => `<li>${gap}</li>`).join('') || '<li>Não especificado</li>'}
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     `;
 }
 
-function generateFunnelSection(funnel) {
+function generateMercadoSection(mercado) {
+    if (!mercado) return '';
+    
+    return `
+        <div class="neo-enhanced-card result-card">
+            <div class="neo-card-header">
+                <div class="neo-card-icon">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <h3 class="neo-card-title">Análise de Mercado</h3>
+            </div>
+            <div class="neo-card-content">
+                <div class="mercado-content">
+                    <div class="tam-sam-som">
+                        <div class="metric-item">
+                            <div class="metric-value">${mercado.tam || 'N/A'}</div>
+                            <div class="metric-label">TAM (Total Addressable Market)</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-value">${mercado.sam || 'N/A'}</div>
+                            <div class="metric-label">SAM (Serviceable Addressable Market)</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-value">${mercado.som || 'N/A'}</div>
+                            <div class="metric-label">SOM (Serviceable Obtainable Market)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <strong>Volume de Busca Mensal:</strong>
+                        <p>${mercado.volume_busca || 'Não especificado'}</p>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <strong>Tendências em Alta:</strong>
+                        <ul>
+                            ${mercado.tendencias_alta?.map(tend => `<li class="trend-up">${tend}</li>`).join('') || '<li>Não especificado</li>'}
+                        </ul>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <strong>Tendências em Baixa:</strong>
+                        <ul>
+                            ${mercado.tendencias_baixa?.map(tend => `<li class="trend-down">${tend}</li>`).join('') || '<li>Não especificado</li>'}
+                        </ul>
+                    </div>
+                    
+                    <div class="sazonalidade">
+                        <div class="detail-item">
+                            <strong>Melhores Meses:</strong>
+                            <p class="meses-bons">${mercado.sazonalidade?.melhores_meses?.join(', ') || 'Não especificado'}</p>
+                        </div>
+                        <div class="detail-item">
+                            <strong>Piores Meses:</strong>
+                            <p class="meses-ruins">${mercado.sazonalidade?.piores_meses?.join(', ') || 'Não especificado'}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function generatePalavrasChaveSection(palavras_chave) {
+    if (!palavras_chave) return '';
+    
+    return `
+        <div class="neo-enhanced-card result-card">
+            <div class="neo-card-header">
+                <div class="neo-card-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3 class="neo-card-title">Análise de Palavras-Chave</h3>
+            </div>
+            <div class="neo-card-content">
+                <div class="keywords-content">
+                    <div class="detail-item">
+                        <strong>Principais Palavras-Chave:</strong>
+                        <div class="keywords-list">
+                            ${palavras_chave.principais?.map(kw => `
+                                <div class="keyword-item">
+                                    <h5>${kw.termo}</h5>
+                                    <div class="keyword-metrics">
+                                        <span>Volume: ${kw.volume}</span>
+                                        <span>CPC: ${kw.cpc}</span>
+                                        <span>Dificuldade: ${kw.dificuldade}</span>
+                                        <span>Intenção: ${kw.intencao}</span>
+                                    </div>
+                                </div>
+                            `).join('') || '<p>Não especificado</p>'}
+                        </div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <strong>Custos por Plataforma:</strong>
+                        <div class="platform-costs">
+                            ${Object.entries(palavras_chave.custos_plataforma || {}).map(([platform, costs]) => `
+                                <div class="platform-item">
+                                    <h5>${platform.charAt(0).toUpperCase() + platform.slice(1)}</h5>
+                                    <div class="cost-metrics">
+                                        <span>CPM: ${costs.cpm}</span>
+                                        <span>CPC: ${costs.cpc}</span>
+                                        <span>CPL: ${costs.cpl}</span>
+                                        <span>Conversão: ${costs.conversao}</span>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function generateMetricasSection(metricas) {
+    if (!metricas) return '';
+    
+    return `
+        <div class="neo-enhanced-card result-card">
+            <div class="neo-card-header">
+                <div class="neo-card-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="neo-card-title">Métricas de Performance</h3>
+            </div>
+            <div class="neo-card-content">
+                <div class="metricas-content">
+                    <div class="metrics-grid">
+                        <div class="metric-item">
+                            <div class="metric-value">${metricas.cac_medio || 'N/A'}</div>
+                            <div class="metric-label">CAC Médio</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-value">${metricas.ltv_medio || 'N/A'}</div>
+                            <div class="metric-label">LTV Médio</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-value">${metricas.ltv_cac_ratio || 'N/A'}</div>
+                            <div class="metric-label">LTV:CAC Ratio</div>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <strong>Funil de Conversão:</strong>
+                        <div class="funil-steps">
+                            ${metricas.funil_conversao?.map((step, index) => `
+                                <div class="funil-step">
+                                    <span class="step-number">${index + 1}</span>
+                                    <span class="step-text">${step}</span>
+                                </div>
+                            `).join('') || '<p>Não especificado</p>'}
+                        </div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <strong>ROI por Canal:</strong>
+                        <div class="roi-channels">
+                            ${Object.entries(metricas.roi_canais || {}).map(([channel, roi]) => `
+                                <div class="roi-item">
+                                    <span class="channel-name">${channel.charAt(0).toUpperCase() + channel.slice(1)}</span>
+                                    <span class="roi-value">${roi}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function generateVozMercadoSection(voz_mercado) {
+    if (!voz_mercado) return '';
+    
+    return `
+        <div class="neo-enhanced-card result-card">
+            <div class="neo-card-header">
+                <div class="neo-card-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3 class="neo-card-title">Voz do Mercado</h3>
+            </div>
+            <div class="neo-card-content">
+                <div class="voz-content">
+                    <div class="detail-item">
+                        <strong>Principais Objeções e Como Contorná-las:</strong>
+                        <div class="objecoes-list">
+                            ${voz_mercado.objecoes?.map((obj, index) => `
+                                <div class="objecao-item">
+                                    <h5>Objeção ${index + 1}: ${obj.objecao}</h5>
+                                    <p><strong>Como contornar:</strong> ${obj.contorno}</p>
+                                </div>
+                            `).join('') || '<p>Não especificado</p>'}
+                        </div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <strong>Linguagem do Mercado:</strong>
+                        <div class="linguagem-grid">
+                            <div class="linguagem-item">
+                                <h5>Termos Técnicos:</h5>
+                                <ul>
+                                    ${voz_mercado.linguagem?.termos?.map(termo => `<li>${termo}</li>`).join('') || '<li>Não especificado</li>'}
+                                </ul>
+                            </div>
+                            <div class="linguagem-item">
+                                <h5>Gírias e Expressões:</h5>
+                                <ul>
+                                    ${voz_mercado.linguagem?.girias?.map(giria => `<li>${giria}</li>`).join('') || '<li>Não especificado</li>'}
+                                </ul>
+                            </div>
+                            <div class="linguagem-item">
+                                <h5>Gatilhos Emocionais:</h5>
+                                <ul>
+                                    ${voz_mercado.linguagem?.gatilhos?.map(gatilho => `<li>${gatilho}</li>`).join('') || '<li>Não especificado</li>'}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <strong>Crenças Limitantes Comuns:</strong>
+                        <ul>
+                            ${voz_mercado.crencas_limitantes?.map(crenca => `<li>${crenca}</li>`).join('') || '<li>Não especificado</li>'}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function generateProjecoesSection(projecoes) {
+    if (!projecoes) return '';
+    
+    return `
+        <div class="neo-enhanced-card result-card">
+            <div class="neo-card-header">
+                <div class="neo-card-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h3 class="neo-card-title">Projeções de Resultados</h3>
+            </div>
+            <div class="neo-card-content">
+                <div class="projecoes-content">
+                    <div class="cenarios-grid">
+                        <div class="cenario-item conservador">
+                            <h4>Cenário Conservador</h4>
+                            <div class="cenario-metrics">
+                                <div class="metric">
+                                    <span class="label">Conversão:</span>
+                                    <span class="value">${projecoes.conservador?.conversao || 'N/A'}</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="label">Faturamento:</span>
+                                    <span class="value">${projecoes.conservador?.faturamento || 'N/A'}</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="label">ROI:</span>
+                                    <span class="value">${projecoes.conservador?.roi || 'N/A'}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="cenario-item realista">
+                            <h4>Cenário Realista</h4>
+                            <div class="cenario-metrics">
+                                <div class="metric">
+                                    <span class="label">Conversão:</span>
+                                    <span class="value">${projecoes.realista?.conversao || 'N/A'}</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="label">Faturamento:</span>
+                                    <span class="value">${projecoes.realista?.faturamento || 'N/A'}</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="label">ROI:</span>
+                                    <span class="value">${projecoes.realista?.roi || 'N/A'}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="cenario-item otimista">
+                            <h4>Cenário Otimista</h4>
+                            <div class="cenario-metrics">
+                                <div class="metric">
+                                    <span class="label">Conversão:</span>
+                                    <span class="value">${projecoes.otimista?.conversao || 'N/A'}</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="label">Faturamento:</span>
+                                    <span class="value">${projecoes.otimista?.faturamento || 'N/A'}</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="label">ROI:</span>
+                                    <span class="value">${projecoes.otimista?.roi || 'N/A'}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function generatePlanoAcaoSection(plano_acao) {
+    if (!plano_acao) return '';
+    
     return `
         <div class="neo-enhanced-card result-card full-width">
             <div class="neo-card-header">
                 <div class="neo-card-icon">
-                    <i class="fas fa-funnel-dollar"></i>
+                    <i class="fas fa-tasks"></i>
                 </div>
-                <h3 class="neo-card-title">Funil de Vendas</h3>
+                <h3 class="neo-card-title">Plano de Ação Estratégico</h3>
             </div>
             <div class="neo-card-content">
-                <div class="funnel-timeline">
-                    ${funnel.fases.map((fase, index) => `
-                        <div class="funnel-phase">
-                            <div class="phase-number">${index + 1}</div>
-                            <div class="phase-content">
-                                <h4>${fase.nome}</h4>
-                                <p><strong>Duração:</strong> ${fase.duracao}</p>
-                                <p><strong>Objetivo:</strong> ${fase.objetivo}</p>
-                                <div class="phase-actions">
-                                    <h5>Principais Ações:</h5>
-                                    <ul>
-                                        ${fase.acoes.map(acao => `<li>${acao}</li>`).join('')}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-                
-                <div class="funnel-metrics">
-                    <h4>Cronograma de Execução</h4>
-                    <div class="timeline">
-                        ${funnel.cronograma.map(item => `
-                            <div class="timeline-item">
-                                <div class="timeline-date">${item.periodo}</div>
-                                <div class="timeline-content">
-                                    <h5>${item.atividade}</h5>
-                                    <p>${item.descricao}</p>
+                <div class="plano-content">
+                    <div class="acoes-timeline">
+                        ${plano_acao.map(acao => `
+                            <div class="acao-item">
+                                <div class="acao-number">${acao.passo}</div>
+                                <div class="acao-content">
+                                    <h4>${acao.acao}</h4>
+                                    <p class="acao-prazo"><strong>Prazo:</strong> ${acao.prazo}</p>
                                 </div>
                             </div>
                         `).join('')}
@@ -498,35 +835,30 @@ function generateFunnelSection(funnel) {
 }
 
 function initializeResultsInteractions() {
-    // Initialize tab functionality
-    const tabButtons = document.querySelectorAll('.tab-btn');
-    tabButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const target = this.getAttribute('onclick').match(/'([^']+)'/)[1];
-            showMaterialTab(target);
-        });
-    });
-}
-
-function showMaterialTab(tabName) {
-    // Hide all tab contents
-    const tabContents = document.querySelectorAll('.tab-content');
-    tabContents.forEach(content => content.classList.remove('active'));
-    
-    // Remove active class from all buttons
-    const tabButtons = document.querySelectorAll('.tab-btn');
-    tabButtons.forEach(btn => btn.classList.remove('active'));
-    
-    // Show target content and activate button
-    const targetContent = document.getElementById(`${tabName}-content`);
-    if (targetContent) {
-        targetContent.classList.add('active');
-    }
-    
-    const targetButton = document.querySelector(`[onclick*="${tabName}"]`);
-    if (targetButton) {
-        targetButton.classList.add('active');
-    }
+    // Initialize tab functionality for avatar section
+    window.showAvatarTab = function(tabName) {
+        // Hide all avatar tab contents
+        const avatarTabContents = document.querySelectorAll('.avatar-content .tab-content');
+        avatarTabContents.forEach(content => content.classList.remove('active'));
+        
+        // Remove active class from all avatar tab buttons
+        const avatarTabButtons = document.querySelectorAll('.avatar-tabs .tab-btn');
+        avatarTabButtons.forEach(btn => btn.classList.remove('active'));
+        
+        // Show target content and activate button
+        const targetContent = document.getElementById(`${tabName}-content`);
+        if (targetContent) {
+            targetContent.classList.add('active');
+        }
+        
+        // Find and activate the corresponding button
+        const targetButton = Array.from(avatarTabButtons).find(btn => 
+            btn.textContent.toLowerCase().includes(tabName.toLowerCase())
+        );
+        if (targetButton) {
+            targetButton.classList.add('active');
+        }
+    };
 }
 
 function downloadReport() {
@@ -535,56 +867,110 @@ function downloadReport() {
         return;
     }
     
-    // Create and download report
-    const reportData = generateReportData(currentAnalysis);
-    const blob = new Blob([reportData], { type: 'text/plain' });
+    // Create comprehensive report
+    const reportData = generateComprehensiveReport(currentAnalysis);
+    const blob = new Blob([reportData], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     
     const a = document.createElement('a');
     a.href = url;
-    a.download = `analise-avatar-${Date.now()}.txt`;
+    a.download = `analise-completa-avatar-${Date.now()}.txt`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
     
-    showNotification('Relatório baixado com sucesso!', 'success');
+    showNotification('Relatório completo baixado com sucesso!', 'success');
 }
 
-function generateReportData(analysis) {
+function generateComprehensiveReport(analysis) {
     return `
-RELATÓRIO DE ANÁLISE DE AVATAR
-===============================
-
-PERFIL DO AVATAR
-----------------
-Nome: ${analysis.avatar.nome}
-Contexto: ${analysis.avatar.contexto}
-
-Barreira Crítica: ${analysis.avatar.barreira_critica}
-Estado Desejado: ${analysis.avatar.estado_desejado}
-Crença Limitante: ${analysis.avatar.crenca_limitante}
-
-ESTRATÉGIA DE POSICIONAMENTO
-----------------------------
-${analysis.positioning.declaracao}
-
-PROJEÇÕES FINANCEIRAS
----------------------
-Leads Projetados: ${analysis.metrics.leads_projetados}
-Taxa de Conversão: ${analysis.metrics.conversao}%
-Faturamento Projetado: R$ ${analysis.metrics.faturamento.toLocaleString()}
-ROI Esperado: ${analysis.metrics.roi}%
-
+RELATÓRIO COMPLETO DE ANÁLISE DE AVATAR
+=======================================
 Gerado em: ${new Date().toLocaleString()}
+Powered by DeepSeek AI
+
+🎯 DEFINIÇÃO DO ESCOPO
+=====================
+Nicho Principal: ${analysis.escopo?.nicho_principal || 'N/A'}
+Subnichos: ${analysis.escopo?.subnichos?.join(', ') || 'N/A'}
+Produto Ideal: ${analysis.escopo?.produto_ideal || 'N/A'}
+Proposta de Valor: ${analysis.escopo?.proposta_valor || 'N/A'}
+
+👥 ANÁLISE DO AVATAR
+===================
+
+DEMOGRAFIA:
+- Faixa Etária: ${analysis.avatar?.demografia?.faixa_etaria || 'N/A'}
+- Gênero: ${analysis.avatar?.demografia?.genero || 'N/A'}
+- Localização: ${analysis.avatar?.demografia?.localizacao || 'N/A'}
+- Renda: ${analysis.avatar?.demografia?.renda || 'N/A'}
+- Escolaridade: ${analysis.avatar?.demografia?.escolaridade || 'N/A'}
+- Profissões: ${analysis.avatar?.demografia?.profissoes?.join(', ') || 'N/A'}
+
+PSICOGRAFIA:
+- Valores: ${analysis.avatar?.psicografia?.valores?.join(', ') || 'N/A'}
+- Estilo de Vida: ${analysis.avatar?.psicografia?.estilo_vida || 'N/A'}
+- Aspirações: ${analysis.avatar?.psicografia?.aspiracoes?.join(', ') || 'N/A'}
+- Medos: ${analysis.avatar?.psicografia?.medos?.join(', ') || 'N/A'}
+- Frustrações: ${analysis.avatar?.psicografia?.frustracoes?.join(', ') || 'N/A'}
+
+COMPORTAMENTO DIGITAL:
+- Plataformas: ${analysis.avatar?.comportamento_digital?.plataformas?.join(', ') || 'N/A'}
+- Horários de Pico: ${analysis.avatar?.comportamento_digital?.horarios_pico || 'N/A'}
+- Conteúdo Preferido: ${analysis.avatar?.comportamento_digital?.conteudo_preferido?.join(', ') || 'N/A'}
+
+💔 DORES E DESEJOS
+=================
+Estado Atual: ${analysis.dores_desejos?.estado_atual || 'N/A'}
+Estado Desejado: ${analysis.dores_desejos?.estado_desejado || 'N/A'}
+Sonho Secreto: ${analysis.dores_desejos?.sonho_secreto || 'N/A'}
+
+💰 ANÁLISE DE MERCADO
+====================
+TAM: ${analysis.mercado?.tam || 'N/A'}
+SAM: ${analysis.mercado?.sam || 'N/A'}
+SOM: ${analysis.mercado?.som || 'N/A'}
+Volume de Busca: ${analysis.mercado?.volume_busca || 'N/A'}
+
+📊 MÉTRICAS DE PERFORMANCE
+=========================
+CAC Médio: ${analysis.metricas?.cac_medio || 'N/A'}
+LTV Médio: ${analysis.metricas?.ltv_medio || 'N/A'}
+LTV:CAC Ratio: ${analysis.metricas?.ltv_cac_ratio || 'N/A'}
+
+📈 PROJEÇÕES
+============
+CONSERVADOR:
+- Conversão: ${analysis.projecoes?.conservador?.conversao || 'N/A'}
+- Faturamento: ${analysis.projecoes?.conservador?.faturamento || 'N/A'}
+- ROI: ${analysis.projecoes?.conservador?.roi || 'N/A'}
+
+REALISTA:
+- Conversão: ${analysis.projecoes?.realista?.conversao || 'N/A'}
+- Faturamento: ${analysis.projecoes?.realista?.faturamento || 'N/A'}
+- ROI: ${analysis.projecoes?.realista?.roi || 'N/A'}
+
+OTIMISTA:
+- Conversão: ${analysis.projecoes?.otimista?.conversao || 'N/A'}
+- Faturamento: ${analysis.projecoes?.otimista?.faturamento || 'N/A'}
+- ROI: ${analysis.projecoes?.otimista?.roi || 'N/A'}
+
+💡 PLANO DE AÇÃO
+===============
+${analysis.plano_acao?.map(acao => `${acao.passo}. ${acao.acao} (${acao.prazo})`).join('\n') || 'N/A'}
+
+---
+Relatório gerado pela plataforma UP Lançamentos
+Análise powered by DeepSeek AI
     `;
 }
 
 function shareResults() {
     if (navigator.share) {
         navigator.share({
-            title: 'Análise de Avatar - UP Lançamentos',
-            text: 'Confira minha análise de mercado completa!',
+            title: 'Análise Completa de Avatar - UP Lançamentos',
+            text: 'Confira minha análise ultra-detalhada de mercado!',
             url: window.location.href
         });
     } else {
@@ -644,7 +1030,7 @@ function showNotification(message, type = 'info') {
     }, 3000);
 }
 
-// Additional CSS for results
+// Additional CSS for new components
 const additionalCSS = `
 .results-header {
     margin-bottom: 2rem;
@@ -666,27 +1052,8 @@ const additionalCSS = `
     grid-column: 1 / -1;
 }
 
-.avatar-profile {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.avatar-basic-info h4 {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--brand-primary);
-    margin-bottom: 0.5rem;
-}
-
-.avatar-context {
-    color: var(--text-secondary);
-    font-style: italic;
-    margin-bottom: 1rem;
-}
-
 .detail-item {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     padding: 1rem;
     background: var(--neo-bg-dark);
     border-radius: var(--neo-border-radius-small);
@@ -703,28 +1070,7 @@ const additionalCSS = `
     color: var(--text-secondary);
 }
 
-.positioning-statement blockquote {
-    background: var(--neo-bg-dark);
-    padding: 1.5rem;
-    border-radius: var(--neo-border-radius-small);
-    border-left: 4px solid var(--brand-primary);
-    font-style: italic;
-    margin: 1rem 0;
-}
-
-.angle-item {
-    margin-bottom: 1rem;
-    padding: 1rem;
-    background: var(--neo-bg-dark);
-    border-radius: var(--neo-border-radius-small);
-}
-
-.angle-item h5 {
-    color: var(--brand-primary);
-    margin-bottom: 0.5rem;
-}
-
-.material-tabs {
+.avatar-tabs {
     display: flex;
     gap: 0.5rem;
     margin-bottom: 1.5rem;
@@ -759,9 +1105,53 @@ const additionalCSS = `
     display: block;
 }
 
-.metrics-grid {
+.dores-list .dor-item {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: var(--neo-bg);
+    border-radius: var(--neo-border-radius-small);
+    border-left: 4px solid var(--brand-primary);
+}
+
+.urgencia {
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.urgencia.alta {
+    background: #ef4444;
+    color: white;
+}
+
+.urgencia.média {
+    background: #f59e0b;
+    color: white;
+}
+
+.urgencia.baixa {
+    background: #10b981;
+    color: white;
+}
+
+.sonho-secreto {
+    font-style: italic;
+    color: var(--brand-primary);
+    font-weight: 600;
+}
+
+.concorrente-item, .indireto-item {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: var(--neo-bg);
+    border-radius: var(--neo-border-radius-small);
+}
+
+.tam-sam-som {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
     margin-bottom: 2rem;
 }
@@ -774,7 +1164,7 @@ const additionalCSS = `
 }
 
 .metric-value {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 800;
     color: var(--brand-primary);
     margin-bottom: 0.5rem;
@@ -787,50 +1177,226 @@ const additionalCSS = `
     letter-spacing: 0.5px;
 }
 
-.investment-breakdown {
-    background: var(--neo-bg-dark);
-    padding: 1.5rem;
-    border-radius: var(--neo-border-radius-small);
+.trend-up {
+    color: #10b981;
 }
 
-.investment-item {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 1rem;
-    padding: 0.8rem 0;
-    border-bottom: 1px solid var(--neo-bg);
+.trend-down {
+    color: #ef4444;
 }
 
-.investment-item:last-child {
-    border-bottom: none;
+.meses-bons {
+    color: #10b981;
+    font-weight: 600;
 }
 
-.competitor-item {
-    margin-bottom: 1.5rem;
-    padding: 1.5rem;
-    background: var(--neo-bg-dark);
-    border-radius: var(--neo-border-radius-small);
+.meses-ruins {
+    color: #ef4444;
+    font-weight: 600;
 }
 
-.competitor-item h4 {
-    color: var(--brand-primary);
+.keyword-item {
     margin-bottom: 1rem;
+    padding: 1rem;
+    background: var(--neo-bg);
+    border-radius: var(--neo-border-radius-small);
 }
 
-.funnel-timeline {
+.keyword-metrics {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.keyword-metrics span {
+    background: var(--neo-bg-dark);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+.platform-costs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.platform-item {
+    padding: 1rem;
+    background: var(--neo-bg);
+    border-radius: var(--neo-border-radius-small);
+}
+
+.cost-metrics {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.cost-metrics span {
+    background: var(--neo-bg-dark);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
     margin-bottom: 2rem;
 }
 
-.funnel-phase {
+.funil-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.funil-step {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem;
+    background: var(--neo-bg);
+    border-radius: var(--neo-border-radius-small);
+}
+
+.step-number {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--brand-gradient);
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.roi-channels {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.roi-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem;
+    background: var(--neo-bg);
+    border-radius: var(--neo-border-radius-small);
+}
+
+.roi-value {
+    font-weight: 700;
+    color: var(--brand-primary);
+}
+
+.objecao-item {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: var(--neo-bg);
+    border-radius: var(--neo-border-radius-small);
+    border-left: 4px solid var(--brand-secondary);
+}
+
+.linguagem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.linguagem-item {
+    padding: 1rem;
+    background: var(--neo-bg);
+    border-radius: var(--neo-border-radius-small);
+}
+
+.cenarios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.cenario-item {
+    padding: 1.5rem;
+    border-radius: var(--neo-border-radius);
+    position: relative;
+    overflow: hidden;
+}
+
+.cenario-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+}
+
+.cenario-item.conservador {
+    background: var(--neo-bg-dark);
+}
+
+.cenario-item.conservador::before {
+    background: #ef4444;
+}
+
+.cenario-item.realista {
+    background: var(--neo-bg-dark);
+}
+
+.cenario-item.realista::before {
+    background: #f59e0b;
+}
+
+.cenario-item.otimista {
+    background: var(--neo-bg-dark);
+}
+
+.cenario-item.otimista::before {
+    background: #10b981;
+}
+
+.cenario-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.cenario-metrics .metric {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    background: var(--neo-bg);
+    border-radius: var(--neo-border-radius-small);
+}
+
+.cenario-metrics .value {
+    font-weight: 700;
+    color: var(--brand-primary);
+}
+
+.acoes-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.acao-item {
     display: flex;
     gap: 1rem;
     align-items: flex-start;
 }
 
-.phase-number {
+.acao-number {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -843,36 +1409,17 @@ const additionalCSS = `
     flex-shrink: 0;
 }
 
-.phase-content {
+.acao-content {
     flex: 1;
     background: var(--neo-bg-dark);
-    padding: 1.5rem;
+    padding: 1rem;
     border-radius: var(--neo-border-radius-small);
 }
 
-.timeline {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.timeline-item {
-    display: flex;
-    gap: 1rem;
-    align-items: flex-start;
-}
-
-.timeline-date {
-    background: var(--brand-gradient);
-    color: var(--text-light);
-    padding: 0.5rem 1rem;
-    border-radius: var(--neo-border-radius-small);
-    font-weight: 600;
-    white-space: nowrap;
-}
-
-.timeline-content {
-    flex: 1;
+.acao-prazo {
+    margin-top: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
 }
 
 @media (max-width: 768px) {
@@ -884,17 +1431,24 @@ const additionalCSS = `
         flex-direction: column;
     }
     
+    .tam-sam-som {
+        grid-template-columns: 1fr;
+    }
+    
     .metrics-grid {
         grid-template-columns: repeat(2, 1fr);
     }
     
-    .investment-item {
+    .cenarios-grid {
         grid-template-columns: 1fr;
-        text-align: center;
     }
     
-    .timeline-item {
-        flex-direction: column;
+    .platform-costs {
+        grid-template-columns: 1fr;
+    }
+    
+    .linguagem-grid {
+        grid-template-columns: 1fr;
     }
 }
 `;
@@ -903,570 +1457,3 @@ const additionalCSS = `
 const style = document.createElement('style');
 style.textContent = additionalCSS;
 document.head.appendChild(style);
-
-
-// Chart.js integration for interactive charts
-function loadChartJS() {
-    if (typeof Chart === 'undefined') {
-        const script = document.createElement('script');
-        script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
-        script.onload = function() {
-            console.log('Chart.js loaded successfully');
-        };
-        document.head.appendChild(script);
-    }
-}
-
-// Load Chart.js when page loads
-document.addEventListener('DOMContentLoaded', function() {
-    loadChartJS();
-});
-
-// Enhanced results display with interactive charts
-function displayResultsWithCharts(analysis) {
-    resultsContainer.innerHTML = generateEnhancedResultsHTML(analysis);
-    
-    // Initialize interactive elements
-    initializeResultsInteractions();
-    
-    // Create charts after a short delay to ensure DOM is ready
-    setTimeout(() => {
-        createMetricsCharts(analysis.metrics);
-        createFunnelChart(analysis.funnel);
-        createCompetitionChart(analysis.competition);
-    }, 500);
-}
-
-function generateEnhancedResultsHTML(analysis) {
-    return `
-        <div class="results-header">
-            <div class="neo-enhanced-card">
-                <div class="neo-card-header">
-                    <div class="neo-card-icon">
-                        <i class="fas fa-trophy"></i>
-                    </div>
-                    <h3 class="neo-card-title">Análise Concluída com Sucesso</h3>
-                </div>
-                <div class="neo-card-content">
-                    <p>Sua análise de mercado foi processada pela IA Gemini. Explore os resultados abaixo para descobrir insights valiosos sobre seu nicho.</p>
-                    <div class="results-actions">
-                        <button class="neo-cta-button" onclick="downloadReport()">
-                            <i class="fas fa-download"></i>
-                            <span>Baixar Relatório</span>
-                        </button>
-                        <button class="neo-cta-button" onclick="shareResults()" style="background: var(--neo-bg); color: var(--text-primary); box-shadow: var(--neo-shadow-1);">
-                            <i class="fas fa-share"></i>
-                            <span>Compartilhar</span>
-                        </button>
-                        <button class="neo-cta-button" onclick="exportToPDF()" style="background: var(--neo-bg); color: var(--text-primary); box-shadow: var(--neo-shadow-1);">
-                            <i class="fas fa-file-pdf"></i>
-                            <span>Exportar PDF</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="results-grid">
-            ${generateAvatarSection(analysis.avatar)}
-            ${generatePositioningSection(analysis.positioning)}
-            ${generateMetricsChartSection(analysis.metrics)}
-            ${generateMarketingSection(analysis.marketing)}
-            ${generateCompetitionChartSection(analysis.competition)}
-            ${generateFunnelChartSection(analysis.funnel)}
-        </div>
-    `;
-}
-
-function generateMetricsChartSection(metrics) {
-    return `
-        <div class="neo-enhanced-card result-card">
-            <div class="neo-card-header">
-                <div class="neo-card-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <h3 class="neo-card-title">Projeções e Métricas</h3>
-            </div>
-            <div class="neo-card-content">
-                <div class="metrics-grid">
-                    <div class="metric-item">
-                        <div class="metric-value">${metrics.leads_projetados}</div>
-                        <div class="metric-label">Leads Projetados</div>
-                    </div>
-                    
-                    <div class="metric-item">
-                        <div class="metric-value">${metrics.conversao}%</div>
-                        <div class="metric-label">Taxa de Conversão</div>
-                    </div>
-                    
-                    <div class="metric-item">
-                        <div class="metric-value">R$ ${metrics.faturamento.toLocaleString()}</div>
-                        <div class="metric-label">Faturamento Projetado</div>
-                    </div>
-                    
-                    <div class="metric-item">
-                        <div class="metric-value">${metrics.roi}%</div>
-                        <div class="metric-label">ROI Esperado</div>
-                    </div>
-                </div>
-                
-                <div class="chart-container">
-                    <canvas id="investmentChart" width="400" height="200"></canvas>
-                </div>
-                
-                <div class="investment-breakdown">
-                    <h4>Distribuição do Investimento</h4>
-                    <div class="investment-items">
-                        ${metrics.investimento.map(item => `
-                            <div class="investment-item">
-                                <span class="channel">${item.canal}</span>
-                                <span class="percentage">${item.percentual}%</span>
-                                <span class="amount">R$ ${item.valor.toLocaleString()}</span>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-function generateCompetitionChartSection(competition) {
-    return `
-        <div class="neo-enhanced-card result-card">
-            <div class="neo-card-header">
-                <div class="neo-card-icon">
-                    <i class="fas fa-chess"></i>
-                </div>
-                <h3 class="neo-card-title">Análise Competitiva</h3>
-            </div>
-            <div class="neo-card-content">
-                <div class="chart-container">
-                    <canvas id="competitionChart" width="400" height="200"></canvas>
-                </div>
-                
-                <div class="competition-analysis">
-                    ${competition.concorrentes.map(concorrente => `
-                        <div class="competitor-item">
-                            <h4>${concorrente.nome}</h4>
-                            <div class="competitor-details">
-                                <p><strong>Preço:</strong> R$ ${concorrente.preco}</p>
-                                <p><strong>Forças:</strong> ${concorrente.forcas}</p>
-                                <p><strong>Fraquezas:</strong> ${concorrente.fraquezas}</p>
-                                <p><strong>Oportunidade:</strong> ${concorrente.oportunidade}</p>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-                
-                <div class="market-gaps">
-                    <h4>Lacunas do Mercado</h4>
-                    <ul>
-                        ${competition.lacunas.map(lacuna => `<li>${lacuna}</li>`).join('')}
-                    </ul>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-function generateFunnelChartSection(funnel) {
-    return `
-        <div class="neo-enhanced-card result-card full-width">
-            <div class="neo-card-header">
-                <div class="neo-card-icon">
-                    <i class="fas fa-funnel-dollar"></i>
-                </div>
-                <h3 class="neo-card-title">Funil de Vendas</h3>
-            </div>
-            <div class="neo-card-content">
-                <div class="chart-container">
-                    <canvas id="funnelChart" width="800" height="300"></canvas>
-                </div>
-                
-                <div class="funnel-timeline">
-                    ${funnel.fases.map((fase, index) => `
-                        <div class="funnel-phase">
-                            <div class="phase-number">${index + 1}</div>
-                            <div class="phase-content">
-                                <h4>${fase.nome}</h4>
-                                <p><strong>Duração:</strong> ${fase.duracao}</p>
-                                <p><strong>Objetivo:</strong> ${fase.objetivo}</p>
-                                <div class="phase-actions">
-                                    <h5>Principais Ações:</h5>
-                                    <ul>
-                                        ${fase.acoes.map(acao => `<li>${acao}</li>`).join('')}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-                
-                <div class="funnel-metrics">
-                    <h4>Cronograma de Execução</h4>
-                    <div class="timeline">
-                        ${funnel.cronograma.map(item => `
-                            <div class="timeline-item">
-                                <div class="timeline-date">${item.periodo}</div>
-                                <div class="timeline-content">
-                                    <h5>${item.atividade}</h5>
-                                    <p>${item.descricao}</p>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-function createMetricsCharts(metrics) {
-    if (typeof Chart === 'undefined') {
-        setTimeout(() => createMetricsCharts(metrics), 1000);
-        return;
-    }
-
-    // Investment Distribution Chart
-    const investmentCtx = document.getElementById('investmentChart');
-    if (investmentCtx) {
-        new Chart(investmentCtx, {
-            type: 'doughnut',
-            data: {
-                labels: metrics.investimento.map(item => item.canal),
-                datasets: [{
-                    data: metrics.investimento.map(item => item.valor),
-                    backgroundColor: [
-                        '#ff6b35',
-                        '#f7931e',
-                        '#ff4757',
-                        '#3742fa',
-                        '#2ed573'
-                    ],
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            color: '#f8fafc',
-                            padding: 20,
-                            usePointStyle: true
-                        }
-                    },
-                    tooltip: {
-                        backgroundColor: '#1e293b',
-                        titleColor: '#f8fafc',
-                        bodyColor: '#e2e8f0',
-                        borderColor: '#ff6b35',
-                        borderWidth: 1,
-                        callbacks: {
-                            label: function(context) {
-                                const value = context.parsed;
-                                const percentage = metrics.investimento[context.dataIndex].percentual;
-                                return `${context.label}: R$ ${value.toLocaleString()} (${percentage}%)`;
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    }
-}
-
-function createCompetitionChart(competition) {
-    if (typeof Chart === 'undefined') {
-        setTimeout(() => createCompetitionChart(competition), 1000);
-        return;
-    }
-
-    const competitionCtx = document.getElementById('competitionChart');
-    if (competitionCtx) {
-        new Chart(competitionCtx, {
-            type: 'bar',
-            data: {
-                labels: competition.concorrentes.map(c => c.nome),
-                datasets: [{
-                    label: 'Preço (R$)',
-                    data: competition.concorrentes.map(c => c.preco),
-                    backgroundColor: '#ff6b35',
-                    borderColor: '#f7931e',
-                    borderWidth: 2,
-                    borderRadius: 8
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: '#f8fafc'
-                        }
-                    },
-                    tooltip: {
-                        backgroundColor: '#1e293b',
-                        titleColor: '#f8fafc',
-                        bodyColor: '#e2e8f0',
-                        borderColor: '#ff6b35',
-                        borderWidth: 1
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            color: '#e2e8f0',
-                            callback: function(value) {
-                                return 'R$ ' + value.toLocaleString();
-                            }
-                        },
-                        grid: {
-                            color: '#334155'
-                        }
-                    },
-                    x: {
-                        ticks: {
-                            color: '#e2e8f0'
-                        },
-                        grid: {
-                            color: '#334155'
-                        }
-                    }
-                }
-            }
-        });
-    }
-}
-
-function createFunnelChart(funnel) {
-    if (typeof Chart === 'undefined') {
-        setTimeout(() => createFunnelChart(funnel), 1000);
-        return;
-    }
-
-    const funnelCtx = document.getElementById('funnelChart');
-    if (funnelCtx) {
-        // Simulate funnel data
-        const funnelData = [2500, 1500, 600, 150, 38]; // Example conversion funnel
-        
-        new Chart(funnelCtx, {
-            type: 'bar',
-            data: {
-                labels: funnel.fases.map(fase => fase.nome),
-                datasets: [{
-                    label: 'Volume',
-                    data: funnelData,
-                    backgroundColor: [
-                        '#ff6b35',
-                        '#f7931e',
-                        '#ff4757',
-                        '#3742fa',
-                        '#2ed573'
-                    ],
-                    borderRadius: 8
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                indexAxis: 'y',
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        backgroundColor: '#1e293b',
-                        titleColor: '#f8fafc',
-                        bodyColor: '#e2e8f0',
-                        borderColor: '#ff6b35',
-                        borderWidth: 1
-                    }
-                },
-                scales: {
-                    x: {
-                        beginAtZero: true,
-                        ticks: {
-                            color: '#e2e8f0'
-                        },
-                        grid: {
-                            color: '#334155'
-                        }
-                    },
-                    y: {
-                        ticks: {
-                            color: '#e2e8f0'
-                        },
-                        grid: {
-                            color: '#334155'
-                        }
-                    }
-                }
-            }
-        });
-    }
-}
-
-function exportToPDF() {
-    if (!currentAnalysis) {
-        showNotification('Nenhuma análise disponível para exportar.', 'error');
-        return;
-    }
-    
-    // Create a simplified version for PDF export
-    const printWindow = window.open('', '_blank');
-    const printContent = generatePrintableReport(currentAnalysis);
-    
-    printWindow.document.write(`
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Relatório de Análise - ${currentAnalysis.avatar.nome}</title>
-            <style>
-                body { font-family: Arial, sans-serif; margin: 20px; color: #333; }
-                h1, h2, h3 { color: #ff6b35; }
-                .section { margin-bottom: 30px; page-break-inside: avoid; }
-                .metric { display: inline-block; margin: 10px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; }
-                .competitor { margin: 15px 0; padding: 15px; background: #f9f9f9; border-radius: 8px; }
-                @media print { .no-print { display: none; } }
-            </style>
-        </head>
-        <body>
-            ${printContent}
-        </body>
-        </html>
-    `);
-    
-    printWindow.document.close();
-    printWindow.focus();
-    
-    setTimeout(() => {
-        printWindow.print();
-    }, 500);
-    
-    showNotification('Relatório preparado para impressão/PDF!', 'success');
-}
-
-function generatePrintableReport(analysis) {
-    return `
-        <h1>Relatório de Análise de Avatar</h1>
-        <p><strong>Data:</strong> ${new Date().toLocaleDateString()}</p>
-        
-        <div class="section">
-            <h2>Perfil do Avatar</h2>
-            <h3>${analysis.avatar.nome}</h3>
-            <p><strong>Contexto:</strong> ${analysis.avatar.contexto}</p>
-            <p><strong>Barreira Crítica:</strong> ${analysis.avatar.barreira_critica}</p>
-            <p><strong>Estado Desejado:</strong> ${analysis.avatar.estado_desejado}</p>
-            <p><strong>Crença Limitante:</strong> ${analysis.avatar.crenca_limitante}</p>
-        </div>
-        
-        <div class="section">
-            <h2>Estratégia de Posicionamento</h2>
-            <p>${analysis.positioning.declaracao}</p>
-        </div>
-        
-        <div class="section">
-            <h2>Métricas Projetadas</h2>
-            <div class="metric">
-                <strong>Leads:</strong> ${analysis.metrics.leads_projetados}
-            </div>
-            <div class="metric">
-                <strong>Conversão:</strong> ${analysis.metrics.conversao}%
-            </div>
-            <div class="metric">
-                <strong>Faturamento:</strong> R$ ${analysis.metrics.faturamento.toLocaleString()}
-            </div>
-            <div class="metric">
-                <strong>ROI:</strong> ${analysis.metrics.roi}%
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2>Análise Competitiva</h2>
-            ${analysis.competition.concorrentes.map(c => `
-                <div class="competitor">
-                    <h4>${c.nome}</h4>
-                    <p><strong>Preço:</strong> R$ ${c.preco}</p>
-                    <p><strong>Forças:</strong> ${c.forcas}</p>
-                    <p><strong>Fraquezas:</strong> ${c.fraquezas}</p>
-                </div>
-            `).join('')}
-        </div>
-    `;
-}
-
-// Update the main performAnalysis function to use the enhanced display
-async function performAnalysis(data) {
-    try {
-        const response = await fetch('/api/analyze', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const result = await response.json();
-        currentAnalysis = result;
-        
-        // Wait for progress simulation to complete
-        setTimeout(() => {
-            hideLoading();
-            displayResultsWithCharts(result); // Use enhanced display with charts
-            analysisInProgress = false;
-        }, 12000);
-        
-    } catch (error) {
-        console.error('Erro na análise:', error);
-        hideLoading();
-        showNotification('Erro ao realizar análise. Verifique sua conexão e tente novamente.', 'error');
-        analysisInProgress = false;
-    }
-}
-
-// Add search functionality
-function initializeSearch() {
-    const searchInput = document.querySelector('.neo-search-input');
-    if (searchInput) {
-        searchInput.addEventListener('input', function(e) {
-            const query = e.target.value.toLowerCase();
-            if (query.length > 2) {
-                searchNichos(query);
-            }
-        });
-    }
-}
-
-async function searchNichos(query) {
-    try {
-        const response = await fetch(`/api/nichos?search=${encodeURIComponent(query)}`);
-        const data = await response.json();
-        
-        // Display search suggestions
-        displaySearchSuggestions(data.nichos);
-        
-    } catch (error) {
-        console.error('Erro na busca:', error);
-    }
-}
-
-function displaySearchSuggestions(nichos) {
-    // Implementation for search suggestions dropdown
-    console.log('Nichos encontrados:', nichos);
-}
-
-// Initialize search when page loads
-document.addEventListener('DOMContentLoaded', function() {
-    initializeSearch();
-});
-

@@ -3,8 +3,7 @@ import logging
 from flask import Flask, send_from_directory, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
-from models.user import User
-from models.analysis import Analysis
+from database import db
 from routes.user import user_bp
 from routes.analysis import analysis_bp
 
@@ -68,7 +67,8 @@ else:
 def health_check():
     return jsonify({
         'status': 'healthy',
-        'message': 'Aplicação funcionando corretamente'
+        'message': 'Aplicação funcionando corretamente',
+        'deepseek_status': 'configured' if os.getenv('DEEPSEEK_API_KEY') else 'not_configured'
     })
 
 # Rota para servir arquivos estáticos e SPA
