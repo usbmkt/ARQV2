@@ -3,7 +3,7 @@ import logging
 from flask import Flask, send_from_directory, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
-from models.user import db
+from models.user import User
 from models.analysis import Analysis
 from routes.user import user_bp
 from routes.analysis import analysis_bp
