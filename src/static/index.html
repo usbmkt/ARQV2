@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UP Lançamentos - Arqueologia do Avatar</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="neo-header" id="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <img src="logo.png" alt="UP Lançamentos" class="neo-logo">
+                    <div class="logo-text">
+                        <h1>UP LANÇAMENTOS</h1>
+                        <p>Arqueologia do Avatar</p>
+                    </div>
+                </div>
+                
+                <nav class="neo-nav">
+                    <a href="#home" class="neo-nav-link active">
+                        <i class="fas fa-home"></i>
+                        <span>Início</span>
+                    </a>
+                    <a href="#analyzer" class="neo-nav-link">
+                        <i class="fas fa-search"></i>
+                        <span>Analisador</span>
+                    </a>
+                    <a href="#dashboard" class="neo-nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </nav>
+                
+                <div class="neo-search-container">
+                    <i class="fas fa-search neo-search-icon"></i>
+                    <input type="text" class="neo-search-input" placeholder="Buscar nicho...">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="neo-hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1 class="neo-hero-title">Desvende o DNA do Seu Avatar</h1>
+                        <p class="neo-hero-subtitle">
+                            Utilize inteligência artificial avançada para analisar seu mercado, 
+                            identificar oportunidades e criar estratégias de lançamento vencedoras. 
+                            Transforme dados em insights acionáveis.
+                        </p>
+                        
+                        <div class="neo-hero-stats">
+                            <div class="neo-stat-item">
+                                <span class="neo-stat-number">98%</span>
+                                <span class="neo-stat-label">Precisão</span>
+                            </div>
+                            <div class="neo-stat-item">
+                                <span class="neo-stat-number">5min</span>
+                                <span class="neo-stat-label">Análise</span>
+                            </div>
+                            <div class="neo-stat-item">
+                                <span class="neo-stat-number">24/7</span>
+                                <span class="neo-stat-label">Disponível</span>
+                            </div>
+                        </div>
+                        
+                        <button class="neo-cta-button" onclick="showAnalyzer()">
+                            <i class="fas fa-rocket"></i>
+                            <span>Começar Análise</span>
+                        </button>
+                    </div>
+                    
+                    <div class="neo-hero-visual">
+                        <div class="neo-floating-card">
+                            <i class="fas fa-brain"></i>
+                            <h3>IA Avançada</h3>
+                            <p>Análise profunda com Gemini AI</p>
+                        </div>
+                        <div class="neo-floating-card">
+                            <i class="fas fa-target"></i>
+                            <h3>Avatar Preciso</h3>
+                            <p>Perfil psicológico detalhado</p>
+                        </div>
+                        <div class="neo-floating-card">
+                            <i class="fas fa-chart-bar"></i>
+                            <h3>Insights Acionáveis</h3>
+                            <p>Estratégias prontas para usar</p>
+                        </div>
+                        <div class="neo-floating-card">
+                            <i class="fas fa-lightning-bolt"></i>
+                            <h3>Resultados Rápidos</h3>
+                            <p>Análise em minutos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analyzer Section -->
+        <section id="analyzer" class="neo-section" style="display: none;">
+            <div class="container">
+                <h2 class="neo-section-title">Analisador de Mercado</h2>
+                
+                <div class="neo-analyzer-container">
+                    <div class="neo-enhanced-card analyzer-form">
+                        <div class="neo-card-header">
+                            <div class="neo-card-icon">
+                                <i class="fas fa-microscope"></i>
+                            </div>
+                            <h3 class="neo-card-title">Configure Sua Análise</h3>
+                        </div>
+                        
+                        <div class="neo-card-content">
+                            <form id="analyzerForm">
+                                <div class="form-group">
+                                    <label for="nicho">Nicho de Atuação *</label>
+                                    <input type="text" id="nicho" name="nicho" required 
+                                           placeholder="Ex: Neuroeducação, Marketing Digital, Fitness...">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="produto">Nome do Produto/Serviço</label>
+                                    <input type="text" id="produto" name="produto" 
+                                           placeholder="Ex: Pais Líderes, Filhos Vencedores">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="descricao">Descrição do Produto</label>
+                                    <textarea id="descricao" name="descricao" rows="4" 
+                                              placeholder="Descreva brevemente seu produto ou serviço..."></textarea>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="preco">Preço (R$)</label>
+                                        <input type="number" id="preco" name="preco" 
+                                               placeholder="997" min="0" step="0.01">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="publico">Público-Alvo</label>
+                                        <input type="text" id="publico" name="publico" 
+                                               placeholder="Ex: Pais de 30-45 anos">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="concorrentes">Principais Concorrentes</label>
+                                    <textarea id="concorrentes" name="concorrentes" rows="3" 
+                                              placeholder="Liste os principais concorrentes separados por vírgula..."></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="dadosAdicionais">Dados Adicionais</label>
+                                    <textarea id="dadosAdicionais" name="dadosAdicionais" rows="4" 
+                                              placeholder="Qualquer informação adicional relevante sobre seu mercado, pesquisas realizadas, etc..."></textarea>
+                                </div>
+                                
+                                <button type="submit" class="neo-cta-button full-width" id="analyzeBtn">
+                                    <i class="fas fa-magic"></i>
+                                    <span>Iniciar Análise com IA</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div class="neo-enhanced-card analyzer-preview">
+                        <div class="neo-card-header">
+                            <div class="neo-card-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <h3 class="neo-card-title">Preview da Análise</h3>
+                        </div>
+                        
+                        <div class="neo-card-content">
+                            <div class="preview-items">
+                                <div class="preview-item">
+                                    <i class="fas fa-user-circle"></i>
+                                    <div>
+                                        <h4>Perfil do Avatar</h4>
+                                        <p>Análise psicológica completa do cliente ideal</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="preview-item">
+                                    <i class="fas fa-bullseye"></i>
+                                    <div>
+                                        <h4>Estratégia de Posicionamento</h4>
+                                        <p>Proposta de valor única e messaging</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="preview-item">
+                                    <i class="fas fa-funnel-dollar"></i>
+                                    <div>
+                                        <h4>Funil de Vendas</h4>
+                                        <p>Estratégia completa de lançamento</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="preview-item">
+                                    <i class="fas fa-file-alt"></i>
+                                    <div>
+                                        <h4>Materiais de Marketing</h4>
+                                        <p>Páginas de venda, e-mails e anúncios</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="preview-item">
+                                    <i class="fas fa-chart-pie"></i>
+                                    <div>
+                                        <h4>Análise de Mercado</h4>
+                                        <p>Concorrência, preços e oportunidades</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="preview-item">
+                                    <i class="fas fa-calculator"></i>
+                                    <div>
+                                        <h4>Projeções Financeiras</h4>
+                                        <p>ROI, métricas e cronograma</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="neo-section" style="display: none;">
+            <div class="container">
+                <h2 class="neo-section-title">Dashboard de Resultados</h2>
+                
+                <div id="loadingState" class="loading-container" style="display: none;">
+                    <div class="neo-enhanced-card">
+                        <div class="loading-content">
+                            <div class="loading-spinner"></div>
+                            <h3>Analisando com IA Gemini...</h3>
+                            <p id="loadingText">Iniciando análise do mercado...</p>
+                            <div class="loading-progress">
+                                <div class="neo-progress-bar">
+                                    <div class="neo-progress-fill" id="progressBar"></div>
+                                </div>
+                                <span id="progressText">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="resultsContainer" style="display: none;">
+                    <!-- Results will be dynamically loaded here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
+
